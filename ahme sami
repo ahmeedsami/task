@@ -1,0 +1,687 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "e2352df8-f3e0-4fa1-aece-28b070128d09",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "import matplotlib.pyplot as plt"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "5a6a1a10-5e1b-4456-be28-18b008b034c0",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Teams</th>\n",
+       "      <th>Seasons</th>\n",
+       "      <th>Players</th>\n",
+       "      <th>Matches</th>\n",
+       "      <th>Goals</th>\n",
+       "      <th>Assists</th>\n",
+       "      <th>Seasons Ratings</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>InterMiami</td>\n",
+       "      <td>2024</td>\n",
+       "      <td>Lionel Messi</td>\n",
+       "      <td>15</td>\n",
+       "      <td>14</td>\n",
+       "      <td>11</td>\n",
+       "      <td>8.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>InterMiami</td>\n",
+       "      <td>2023</td>\n",
+       "      <td>Lionel Messi</td>\n",
+       "      <td>14</td>\n",
+       "      <td>11</td>\n",
+       "      <td>5</td>\n",
+       "      <td>8.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>PSG</td>\n",
+       "      <td>2022/2023</td>\n",
+       "      <td>Lionel Messi</td>\n",
+       "      <td>41</td>\n",
+       "      <td>21</td>\n",
+       "      <td>20</td>\n",
+       "      <td>8.1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>PSG</td>\n",
+       "      <td>2021/2022</td>\n",
+       "      <td>Lionel Messi</td>\n",
+       "      <td>34</td>\n",
+       "      <td>11</td>\n",
+       "      <td>14</td>\n",
+       "      <td>7.9</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Barcelona</td>\n",
+       "      <td>2020/2021</td>\n",
+       "      <td>Lionel Messi</td>\n",
+       "      <td>47</td>\n",
+       "      <td>38</td>\n",
+       "      <td>12</td>\n",
+       "      <td>8.4</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        Teams    Seasons       Players  Matches  Goals  Assists  \\\n",
+       "0  InterMiami       2024  Lionel Messi       15     14       11   \n",
+       "1  InterMiami       2023  Lionel Messi       14     11        5   \n",
+       "2         PSG  2022/2023  Lionel Messi       41     21       20   \n",
+       "3         PSG  2021/2022  Lionel Messi       34     11       14   \n",
+       "4   Barcelona  2020/2021  Lionel Messi       47     38       12   \n",
+       "\n",
+       "   Seasons Ratings  \n",
+       "0              8.5  \n",
+       "1              8.0  \n",
+       "2              8.1  \n",
+       "3              7.9  \n",
+       "4              8.4  "
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data = pd.read_csv('Latest Football  Players 2024 Data.csv')\n",
+    "data.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "d1e28a71-a112-4cef-98d7-479902694b25",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(1216, 7)"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "4710aaa2-a056-4ca1-b57e-afa66fd807b5",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Teams               object\n",
+       "Seasons             object\n",
+       "Players             object\n",
+       "Matches              int64\n",
+       "Goals                int64\n",
+       "Assists              int64\n",
+       "Seasons Ratings    float64\n",
+       "dtype: object"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data.dtypes"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "5a49df27-2441-4823-a245-ccb94b26c041",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Matches</th>\n",
+       "      <th>Goals</th>\n",
+       "      <th>Assists</th>\n",
+       "      <th>Seasons Ratings</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>count</th>\n",
+       "      <td>1216.000000</td>\n",
+       "      <td>1216.000000</td>\n",
+       "      <td>1216.000000</td>\n",
+       "      <td>1216.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>mean</th>\n",
+       "      <td>37.024671</td>\n",
+       "      <td>8.059211</td>\n",
+       "      <td>4.797697</td>\n",
+       "      <td>7.111595</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>std</th>\n",
+       "      <td>11.762088</td>\n",
+       "      <td>9.351558</td>\n",
+       "      <td>4.496019</td>\n",
+       "      <td>0.410907</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>min</th>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>5.100000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25%</th>\n",
+       "      <td>31.000000</td>\n",
+       "      <td>2.000000</td>\n",
+       "      <td>1.000000</td>\n",
+       "      <td>6.900000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>50%</th>\n",
+       "      <td>39.000000</td>\n",
+       "      <td>4.000000</td>\n",
+       "      <td>4.000000</td>\n",
+       "      <td>7.100000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>75%</th>\n",
+       "      <td>46.000000</td>\n",
+       "      <td>12.000000</td>\n",
+       "      <td>7.000000</td>\n",
+       "      <td>7.300000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>max</th>\n",
+       "      <td>59.000000</td>\n",
+       "      <td>55.000000</td>\n",
+       "      <td>25.000000</td>\n",
+       "      <td>8.900000</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "           Matches        Goals      Assists  Seasons Ratings\n",
+       "count  1216.000000  1216.000000  1216.000000      1216.000000\n",
+       "mean     37.024671     8.059211     4.797697         7.111595\n",
+       "std      11.762088     9.351558     4.496019         0.410907\n",
+       "min       1.000000     0.000000     0.000000         5.100000\n",
+       "25%      31.000000     2.000000     1.000000         6.900000\n",
+       "50%      39.000000     4.000000     4.000000         7.100000\n",
+       "75%      46.000000    12.000000     7.000000         7.300000\n",
+       "max      59.000000    55.000000    25.000000         8.900000"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "164cd3da-b00b-4fd4-8f09-3b4a581a535b",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Teams</th>\n",
+       "      <th>Seasons</th>\n",
+       "      <th>Players</th>\n",
+       "      <th>Matches</th>\n",
+       "      <th>Goals</th>\n",
+       "      <th>Assists</th>\n",
+       "      <th>Seasons Ratings</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>InterMiami</td>\n",
+       "      <td>2024</td>\n",
+       "      <td>Lionel Messi</td>\n",
+       "      <td>15</td>\n",
+       "      <td>14</td>\n",
+       "      <td>11</td>\n",
+       "      <td>8.5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>InterMiami</td>\n",
+       "      <td>2023</td>\n",
+       "      <td>Lionel Messi</td>\n",
+       "      <td>14</td>\n",
+       "      <td>11</td>\n",
+       "      <td>5</td>\n",
+       "      <td>8.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>PSG</td>\n",
+       "      <td>2022/2023</td>\n",
+       "      <td>Lionel Messi</td>\n",
+       "      <td>41</td>\n",
+       "      <td>21</td>\n",
+       "      <td>20</td>\n",
+       "      <td>8.1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>PSG</td>\n",
+       "      <td>2021/2022</td>\n",
+       "      <td>Lionel Messi</td>\n",
+       "      <td>34</td>\n",
+       "      <td>11</td>\n",
+       "      <td>14</td>\n",
+       "      <td>7.9</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Barcelona</td>\n",
+       "      <td>2020/2021</td>\n",
+       "      <td>Lionel Messi</td>\n",
+       "      <td>47</td>\n",
+       "      <td>38</td>\n",
+       "      <td>12</td>\n",
+       "      <td>8.4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1211</th>\n",
+       "      <td>Real Sociedad</td>\n",
+       "      <td>2020/2021</td>\n",
+       "      <td>Mikel Oyarzabal</td>\n",
+       "      <td>43</td>\n",
+       "      <td>13</td>\n",
+       "      <td>10</td>\n",
+       "      <td>7.1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1212</th>\n",
+       "      <td>Real Sociedad</td>\n",
+       "      <td>2019/2020</td>\n",
+       "      <td>Mikel Oyarzabal</td>\n",
+       "      <td>45</td>\n",
+       "      <td>13</td>\n",
+       "      <td>13</td>\n",
+       "      <td>7.1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1213</th>\n",
+       "      <td>Real Sociedad</td>\n",
+       "      <td>2018/2019</td>\n",
+       "      <td>Mikel Oyarzabal</td>\n",
+       "      <td>41</td>\n",
+       "      <td>14</td>\n",
+       "      <td>2</td>\n",
+       "      <td>6.7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1214</th>\n",
+       "      <td>Real Sociedad</td>\n",
+       "      <td>2017/2018</td>\n",
+       "      <td>Mikel Oyarzabal</td>\n",
+       "      <td>43</td>\n",
+       "      <td>14</td>\n",
+       "      <td>6</td>\n",
+       "      <td>7.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1215</th>\n",
+       "      <td>Real Sociedad</td>\n",
+       "      <td>2016/2017</td>\n",
+       "      <td>Mikel Oyarzabal</td>\n",
+       "      <td>43</td>\n",
+       "      <td>4</td>\n",
+       "      <td>8</td>\n",
+       "      <td>6.6</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>1216 rows × 7 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "              Teams    Seasons           Players  Matches  Goals  Assists  \\\n",
+       "0        InterMiami       2024      Lionel Messi       15     14       11   \n",
+       "1        InterMiami       2023      Lionel Messi       14     11        5   \n",
+       "2               PSG  2022/2023      Lionel Messi       41     21       20   \n",
+       "3               PSG  2021/2022      Lionel Messi       34     11       14   \n",
+       "4         Barcelona  2020/2021      Lionel Messi       47     38       12   \n",
+       "...             ...        ...               ...      ...    ...      ...   \n",
+       "1211  Real Sociedad  2020/2021  Mikel Oyarzabal        43     13       10   \n",
+       "1212  Real Sociedad  2019/2020  Mikel Oyarzabal        45     13       13   \n",
+       "1213  Real Sociedad  2018/2019  Mikel Oyarzabal        41     14        2   \n",
+       "1214  Real Sociedad  2017/2018  Mikel Oyarzabal        43     14        6   \n",
+       "1215  Real Sociedad  2016/2017  Mikel Oyarzabal        43      4        8   \n",
+       "\n",
+       "      Seasons Ratings  \n",
+       "0                 8.5  \n",
+       "1                 8.0  \n",
+       "2                 8.1  \n",
+       "3                 7.9  \n",
+       "4                 8.4  \n",
+       "...               ...  \n",
+       "1211              7.1  \n",
+       "1212              7.1  \n",
+       "1213              6.7  \n",
+       "1214              7.0  \n",
+       "1215              6.6  \n",
+       "\n",
+       "[1216 rows x 7 columns]"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df = pd.DataFrame(data)\n",
+    "df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "885a510d-146e-4083-9288-20c8f94bd397",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Teams              0\n",
+       "Seasons            0\n",
+       "Players            0\n",
+       "Matches            0\n",
+       "Goals              0\n",
+       "Assists            0\n",
+       "Seasons Ratings    0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "data.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 64,
+   "id": "8a7f52d3-2dc1-48ef-86f6-d22776c7c22e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "from sklearn.compose import ColumnTransformer\n",
+    "from sklearn.pipeline import Pipeline\n",
+    "from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder\n",
+    "from sklearn.impute import SimpleImputer\n",
+    "from sklearn.model_selection import train_test_split\n",
+    "from sklearn.ensemble import RandomForestClassifier\n",
+    "from sklearn.metrics import accuracy_score"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 80,
+   "id": "eca56a02-d7bc-4d9d-8dd2-7e7f0e4a1ede",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "First few rows of the dataset:\n",
+      "        Teams    Seasons       Players  Matches  Goals  Assists  \\\n",
+      "0  InterMiami       2024  Lionel Messi       15     14       11   \n",
+      "1  InterMiami       2023  Lionel Messi       14     11        5   \n",
+      "2         PSG  2022/2023  Lionel Messi       41     21       20   \n",
+      "3         PSG  2021/2022  Lionel Messi       34     11       14   \n",
+      "4   Barcelona  2020/2021  Lionel Messi       47     38       12   \n",
+      "\n",
+      "   Seasons Ratings  \n",
+      "0              8.5  \n",
+      "1              8.0  \n",
+      "2              8.1  \n",
+      "3              7.9  \n",
+      "4              8.4  \n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "# Display the first few rows of the dataframe\n",
+    "print(\"First few rows of the dataset:\")\n",
+    "print(df.head())\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 82,
+   "id": "5c573b5b-55ff-4f58-9a8a-c7f3723f6721",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Create preprocessing pipelines for numerical and categorical features\n",
+    "numerical_pipeline = Pipeline(steps=[\n",
+    "    ('imputer', SimpleImputer(strategy='mean')),  # Handle missing values with mean imputation\n",
+    "    ('scaler', StandardScaler()),  # Standardize numerical features\n",
+    "    ('normalizer', MinMaxScaler())  # Normalize numerical features to the range [0, 1]\n",
+    "])\n",
+    "\n",
+    "categorical_pipeline = Pipeline(steps=[\n",
+    "    ('imputer', SimpleImputer(strategy='most_frequent')),  # Handle missing values with most frequent value\n",
+    "    ('encoder', OneHotEncoder(handle_unknown='ignore'))  # Encode categorical features\n",
+    "])\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 84,
+   "id": "441fa09a-219c-4ebd-8d17-5bf652b15dc4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Combine preprocessing pipelines into a single ColumnTransformer\n",
+    "preprocessor = ColumnTransformer(\n",
+    "    transformers=[\n",
+    "        ('num', numerical_pipeline, numerical_features),\n",
+    "        ('cat', categorical_pipeline, categorical_features)\n",
+    "    ])\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 86,
+   "id": "deb6ea90-ec75-4ae2-b84f-75a1dc31a1dd",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Split data into training and testing sets\n",
+    "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n",
+    "\n",
+    "# Train the model\n",
+    "pipeline.fit(X_train, y_train)\n",
+    "\n",
+    "# Make predictions\n",
+    "y_pred = pipeline.predict(X_test)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 88,
+   "id": "6fb4632d-6e7a-46af-abab-faf615dc2a05",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Define features and target\n",
+    "X = df.drop('Goals', axis=1)  # Replace 'target' with your actual target column name\n",
+    "y = df['Goals']  # Replace 'target' with your actual target column name\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 90,
+   "id": "a3904bd8-e05a-4896-8346-d1221128c251",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Define the complete pipeline with preprocessing and a classifier\n",
+    "pipeline = Pipeline(steps=[\n",
+    "    ('preprocessor', preprocessor),\n",
+    "    ('classifier', RandomForestClassifier(random_state=42))  # Example classifier\n",
+    "])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 92,
+   "id": "a454d4fc-46e9-4894-aee5-b8d2ff116d17",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Accuracy of the model: 0.18\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Evaluate the model\n",
+    "accuracy = accuracy_score(y_test, y_pred)\n",
+    "print(f'Accuracy of the model: {accuracy:.2f}')"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.4"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
